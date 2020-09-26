@@ -1,8 +1,8 @@
 # Install ROS, MAVROS, Gazebo and PX4 SITL
 
-> Note: arm64 devices (e.g. NVIDIA Jetson Family) doesn't support PX4 SITL.
+> **Note:** arm64 devices (e.g. NVIDIA Jetson Family) doesn't support PX4 SITL.
 
-> Note: This tutorial is only for Ubuntu 18.04 operating systems.
+> **Note:** This tutorial is only for Ubuntu 18.04 operating systems.
 
 ## Install ROS, MAVROS, Gazebo
 Official instructions for installing ROS, MAVROS, Gazebo can be found 
