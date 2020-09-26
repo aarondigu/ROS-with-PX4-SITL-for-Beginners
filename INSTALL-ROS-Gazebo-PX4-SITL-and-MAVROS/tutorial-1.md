@@ -30,3 +30,5 @@ bash ubuntu_sim_ros_melodic.sh
 ```
 
 4. This should take a while and by the ending you should see a succesfully built catkin workspace.
+
+## Install PX4 SITL
