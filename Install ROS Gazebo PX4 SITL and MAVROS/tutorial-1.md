@@ -31,6 +31,8 @@ bash ubuntu_sim_ros_melodic.sh
 
 4. This should take a while and by the end you should see a succesfully built catkin workspace.
 
+5. Delete the script `ubuntu_sim_ros_melodic.sh`
+
 ## Install PX4 SITL
 This instructions were obtained from [here](https://dev.px4.io/master/en/setup/building_px4.html) and the [PX4/Avoidance repo](https://github.com/PX4/avoidance).
 
