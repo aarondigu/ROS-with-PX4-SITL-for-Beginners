@@ -22,6 +22,9 @@ source Tools/setup_gazebo.bash $(pwd) $(pwd)/build/px4_sitl_default
 4. Add the Firmware directory and gthe gazebo related directory to ROS_PACKAGE_PATH so that ROS can start px4 and mavlink_sitl_gazebo:
 ``` 
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)
+
+#and
+
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/Tools/sitl_gazebo
 ``` 
 
@@ -64,7 +67,7 @@ pxh > commander land
 
 This was a very basic example because we won't be using these commands anymore. It results more interesting and easier to use MAVROS commands, as we are going to see next.
 
-## Simulation with MAVROS
+## Adding MAVROS to the simulation
 
 >**NOTE:** It is assumed that you are already familiarized with ROS, you can check the official ROS tutorials on the [ROS Wiki](http://wiki.ros.org/ROS/Tutorials).
 
