@@ -63,19 +63,8 @@ catkin init
 wstool init src
 
 
-## Build MAVROS
-### Get source (upstream - released)
-rosinstall_generator --upstream mavros | tee  /tmp/mavros.rosinstall
-
-## Install MAVLink
-### Get latest released mavlink package
-rosinstall_generator mavlink | tee -a /tmp/mavros.rosinstall
-
-### Setup workspace & install deps
-wstool merge -t src /tmp/mavros.rosinstall
-wstool update -t src
-rosdep install --from-paths src --ignore-src --rosdistro melodic -y 
-
+## Install MAVROS
+sudo apt install ros-melodic-mavros ros-melodic-mavros-extras
 
 
 #Install geographiclib
