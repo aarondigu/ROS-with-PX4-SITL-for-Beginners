@@ -4,11 +4,16 @@
  * Stack and tested in Gazebo SITL
  */
 
+
 #include <ros/ros.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/State.h>
+#include <math.h>  
+
+
+const float  PI = 3.14159265358979f;
 
 mavros_msgs::State current_state;
 void state_cb(const mavros_msgs::State::ConstPtr& msg){
@@ -41,7 +46,9 @@ int main(int argc, char **argv)
     geometry_msgs::PoseStamped pose;
     pose.pose.position.x = 0;
     pose.pose.position.y = 0;
-    pose.pose.position.z = 2;
+    pose.pose.position.z = 4;
+
+    float angle = 0.0;
 
     //send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
@@ -57,6 +64,7 @@ int main(int argc, char **argv)
     arm_cmd.request.value = true;
 
     ros::Time last_request = ros::Time::now();
+    ros::Time last_request_2 = ros::Time::now();
 
     while(ros::ok()){
         if( current_state.mode != "OFFBOARD" &&
@@ -76,6 +84,23 @@ int main(int argc, char **argv)
                 last_request = ros::Time::now();
             }
         }
+
+        //rotation around z axis
+        if ((ros::Time::now() - last_request_2 > ros::Duration(1.0)) && (ros::Time::now() - last_request > ros::Duration(5.0))){
+            if (current_state.mode == "OFFBOARD" && current_state.armed){
+                angle += PI/4;
+                if (angle > 2*PI)
+                    angle -= 2*PI;
+                pose.pose.orientation.w = cos(angle/2);
+                pose.pose.orientation.x = 0;
+                pose.pose.orientation.y = 0;
+                pose.pose.orientation.z = sin(angle/2);
+
+                ROS_INFO("Added PI/4 to angle");
+            }
+            last_request_2 = ros::Time::now();
+        }
+        
 
         local_pos_pub.publish(pose);
 

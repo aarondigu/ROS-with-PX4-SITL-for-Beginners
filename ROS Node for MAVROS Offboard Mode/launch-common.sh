@@ -3,7 +3,7 @@
 
 cd ~/Firmware
 
-DONT_RUN=1 make px4_sitl_default gazebo
+DONT_RUN=1 make px4_sitl_default gazebo___${1:-empty}
 
 source Tools/setup_gazebo.bash $(pwd) $(pwd)/build/px4_sitl_default
 
