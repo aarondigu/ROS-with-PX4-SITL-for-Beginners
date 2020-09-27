@@ -11,8 +11,9 @@ cd ~/Firmware
 
 2. Make the PX4 simulation with Gazebo without running it:
 ```
-DONT_RUN=1 make px4_sitl_default gazebo
+DONT_RUN=1 make px4_sitl_default gazebo___baylands
 ```
+The world by default is `empty`, but using the argument `gazebo_<model>_<debugger>_<world>` we can choose which model, debugger and world we want to simulate. For this example I used `bandalays`, but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `bandalays` for `<world>`. More information about using `make` with different models, debuggers and worlds can be found [here](https://dev.px4.io/master/en/setup/building_px4.html#make_targets).
 
 3. Setup some environment variables:
 ```
@@ -33,7 +34,7 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/Tools/sitl_gazebo
 roslaunch px4 posix_sitl.launch world:=$(pwd)/Tools/sitl_gazebo/worlds/baylands.world
 
 ```
-The world by default is `empty.world`, but using the argument `world` we can choose which world we want to simulate. For this example I used `bandalays.world` but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `bandalays.world` for `<world_name>.world`.
+The world by default is `empty.world`, but using the argument `world` we can choose which world we want to simulate. For this example I used `bandalays.world`, but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `bandalays.world` for `<world_name>.world`.
 
 6. Once the simulation is running, press the "Enter" key and you should see `pxh >`.
 
@@ -56,7 +57,7 @@ pxh > commander mode offboard
 pxh > commander takeoff
 ```
 
-10. Land the drone:
+10. The drone will land automatically because there isn't another input. If no, simply land the drone:
 ```
 
 pxh > commander land
@@ -97,14 +98,9 @@ rosrun mavros mavsafety arm
 ```
 rosrun mavros mavsys  mode -c OFFBOARD
 ```
-
-6. Use MAVROS mavsetp to set a local point the drone has to reach:
+ 
+6. Finally, use MAVROS mavcmd to land the drone, where the 4 zeros are yaw, latitude, longitude and altitude, respectively:
 ```
-rosrun mavros mavsetp local 0 4 3 0 0 0
-```
-
-6. Finally, use MAVROS mavcmd to land the drone:
-```
-rosrun mavros mavcmd land -v 0 0 0 0
+rosrun mavros mavcmd land 0 0 0 0
 ```
 
