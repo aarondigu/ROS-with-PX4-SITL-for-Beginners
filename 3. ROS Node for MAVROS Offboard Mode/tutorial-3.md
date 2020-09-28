@@ -30,7 +30,7 @@ touch offb/src/offb_node.cpp
 
 4. Open `offb_node.cpp` and paste the code from this [site](https://dev.px4.io/master/en/ros/mavros_offboard.html), in which the code is already explained in detail.
 
-5. Open the `CMakeList.txt` file of the package you just created (/offb/CMakeListstxt) and uncomment the lines:
+5. Open the `CMakeList.txt` file of the package you just created (/offb/CMakeList.txt) and uncomment the lines:
 
 ```
 add_executable(${PROJECT_NAME}_node src/offb_node.cpp)
@@ -81,7 +81,7 @@ touch offb/launch/offb.launch
 
 ## Creating bash scripts to run our application
 
-9. Now we have to run this launchfile, but what are those "px4" and "mavlink_sitl_gazebo" packages? They are actually ~/Firmware and ~/Firmware/Tools/sitl_gazebo directories, respectively; but we want ROS to see them as packages. We will do that in a bash script. Let's create a new `src` directory in our home (~) and create the `launch-common.sh` script: 
+9. Now we have to run this launchfile, but what are those "px4" and "mavlink_sitl_gazebo" packages? They are actually ~/Firmware and ~/Firmware/Tools/sitl_gazebo directories, respectively; but we want ROS to see them as packages. We will do that in a bash script. Let's create a new `src` directory in our home and create the `launch-common.sh` script: 
 ```
 cd ~
 mkdir src
@@ -130,7 +130,7 @@ roslaunch offb offb.launch world:=${1:-empty}
 
 This script needs an argument when we run it, that argument is the world we want to simulate with our drone. Available worlds are [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html). To run this script we need the command: `./launch-offb.sh <world>`. If no argument is given, the world `empty` will be used by default.
 
-11. Finally, let's fly our drone! Open a new terminal and run this:
+11. Finally, let's fly our drone! Let's hover our drone in the McMillan Airfield world. Open a new terminal and run this:
 ```
 cd ~/src
 ./launch-offb.sh mcmillan_airfield
