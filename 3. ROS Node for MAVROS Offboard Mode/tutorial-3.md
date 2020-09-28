@@ -136,4 +136,4 @@ cd ~/src
 ./launch-offb.sh mcmillan_airfield
 ```
 
-12. It will take a couple of seconds, but hopefully, Gazebo will start, and you will see the drone hovering!
+12. It will take a couple of seconds, but hopefully, Gazebo will start, and you will see the drone hovering! You will se something similar to this:
