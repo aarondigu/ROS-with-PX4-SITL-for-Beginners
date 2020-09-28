@@ -1,5 +1,7 @@
 # ROS Node for MAVROS Offboard Mode
 
+> **NOTE:** The files created in this tutorial can be found [here](https://github.com/aarondigu/ROS-with-PX4-SITL-for-Beginners/tree/master/3.%20ROS%20Node%20for%20MAVROS%20Offboard%20Mode).
+
 In this tutorial you will learn to hover the iris drone using a ROS Node and [ROS Wrappers](https://dev.px4.io/master/en/simulation/ros_interface.html#launching-gazebo-with-ros-wrappers), but also executing PX4 SITL, Gazebo and MAVROS. This tutorial is based on this [great tutorial](https://darienmt.com/autonomous-flight/2018/11/25/px4-sitl-ros-example.html), but I made some modifications to use it with any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. 
 
 So, without further ado, let's begin!
