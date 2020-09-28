@@ -13,7 +13,7 @@ cd ~/Firmware
 ```
 DONT_RUN=1 make px4_sitl_default gazebo___mcmillan_airfield
 ```
-The world by default is `empty`, but using the argument `gazebo_<model>_<debugger>_<world>` we can choose which model, debugger and world we want to simulate. For this example I used `bandalays`, but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `bandalays` for `<world>`. More information about using `make` with different models, debuggers and worlds can be found [here](https://dev.px4.io/master/en/setup/building_px4.html#make_targets).
+The world by default is `empty`, but using the argument `gazebo_<model>_<debugger>_<world>` we can choose which model, debugger and world we want to simulate. For this example I used `McMillan Airfield`, but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `mcmillan_airfield` for `<world>`. More information about using `make` with different models, debuggers and worlds can be found [here](https://dev.px4.io/master/en/setup/building_px4.html#make_targets).
 
 3. Setup some environment variables:
 ```
@@ -34,7 +34,7 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/Tools/sitl_gazebo
 roslaunch px4 posix_sitl.launch world:=$(pwd)/Tools/sitl_gazebo/worlds/mcmillan_airfield.world
 
 ```
-The world by default is `empty.world`, but using the argument `world` we can choose which world we want to simulate. For this example I used `bandalays.world`, but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `bandalays.world` for `<world_name>.world`.
+The world by default is `empty.world`, but using the argument `world` we can choose which world we want to simulate. For this example I used `mcmillan_airfield.world`, but you can use any of the [PX4/sitl_gazebo/worlds](https://dev.px4.io/master/en/simulation/gazebo_worlds.html) available. You just need to replace `macmillan_airfield.world` for `<world_name>.world`.
 
 6. Once the simulation is running, press the "Enter" key and you should see `pxh >`.
 
