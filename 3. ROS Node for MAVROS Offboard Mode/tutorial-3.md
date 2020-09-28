@@ -137,3 +137,5 @@ cd ~/src
 ```
 
 12. It will take a couple of seconds, but hopefully, Gazebo will start, and you will see the drone hovering! You will se something similar to this:
+
+![Result 3](https://raw.githubusercontent.com/aarondigu/ROS-with-PX4-SITL-for-Beginners/master/3.%20ROS%20Node%20for%20MAVROS%20Offboard%20Mode/result_3.png)
