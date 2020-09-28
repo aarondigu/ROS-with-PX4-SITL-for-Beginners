@@ -27,6 +27,7 @@ wget https://raw.github.com/aarondigu/ROS-with-PX4-SITL-for-Beginners/master/1.%
 ```
 bash ubuntu_sim_ros_melodic.sh
 ```
+> **NOTE:** You may have to confirme some installations.
 
 4. This should take a while and by the end you should see a succesfully built catkin workspace.
 
