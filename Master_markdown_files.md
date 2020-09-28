@@ -1,3 +1,3 @@
-#Editing Markdown files
+# Editing Markdown files
 
-https://guides.github.com/features/mastering-markdown/
+[Github resources](https://guides.github.com/features/mastering-markdown/)
