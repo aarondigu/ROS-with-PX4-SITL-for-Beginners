@@ -64,7 +64,7 @@ wstool init src
 
 
 ## Install MAVROS
-sudo apt install ros-melodic-mavros ros-melodic-mavros-extras
+sudo apt install ros-melodic-mavros ros-melodic-mavros-extras -y
 
 
 #Install geographiclib

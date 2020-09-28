@@ -19,8 +19,7 @@ sudo apt update
 2. Download the script:
 
 ```
-wget https://raw.githubusercontent.com/aarondigu/ROS-with-PX4-SITL-for-Beginners/master/Install%20ROS%20Gazebo%20PX4%20SITL%20and%20MAVROS/ubuntu_sim_ros_melodic.sh
-
+wget https://raw.github.com/aarondigu/ROS-with-PX4-SITL-for-Beginners/master/1.%20Install%20ROS%20Gazebo%20PX4%20SITL%20and%20MAVROS/ubuntu_sim_ros_melodic.sh
 ```
 
 3. Run the script:
