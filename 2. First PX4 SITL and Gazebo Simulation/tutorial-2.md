@@ -84,7 +84,7 @@ roslaunch mavros px4.launch fcu_url:="udp://:14540@127.0.0.1:14557"
 rostopic echo /mavros/state
 ```
 
-3. In a new terminal, publish in the `/mavros/setpoint_position/local` topic, which will tell PX4 the position and orientation we want to reach. In this particular case, we want the drone to modify only its altitude to 3.0 meters, without any rotations. This message will be published at a rate of 10 Hz.
+3. In a new terminal, publish in the `/mavros/setpoint_position/local` topic, which will tell PX4 the position and orientation we want to reach. In this particular case, we want the drone to modify only its altitude to 3.0 meters, without any rotations. This message will be published at a rate of 10 Hz. PX4 has a timeout of 500ms between two Offboard commands, so the minimum rate is 2 Hz but we choose more to account for possible latencies.
 ```
 rostopic pub -r 10  /mavros/setpoint_position/local geometry_msgs/PoseStamped "{header:  {seq: 0, stamp: {secs: 0, nsecs: 0}}, pose: {position: {x: 0.0, y: 0.0, z: 3.0}, orientation:{x: 0.0, y: 0.0, z: 0.0, w: 0.0}}}"
 ```
@@ -94,7 +94,7 @@ rostopic pub -r 10  /mavros/setpoint_position/local geometry_msgs/PoseStamped "{
 rosrun mavros mavsafety arm
 ```
 
-5. Use MAVROS mavsys command to change the flight mode to "offboard", be fast because you only have a few seconds of inactivity before PX4 automatically returns to "manual" mode after arming the drone:
+5. Use MAVROS mavsys command to change the flight mode to "offboard", be fast because you only have a few seconds of inactivity before PX4 automatically falls back to the last mode the vehicle was in before entering Offboard mode:
 ```
 rosrun mavros mavsys  mode -c OFFBOARD
 ```
