@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 <!-- MAVROS posix SITL environment launch script -->
-<!-- launches MAVROS, PX4 SITL, Gazebo environment,  spawns vehicle and first_mission_node -->
+<!-- launches MAVROS, PX4 SITL, Gazebo environment,  spawns vehicle and first_mission_debug node -->
 
 
     <!-- Gazebo World config -->    
@@ -11,8 +11,7 @@
     <include file="$(find px4)/launch/mavros_posix_sitl.launch">
         <arg name="world" value="$(find mavlink_sitl_gazebo)/worlds/$(arg world).world"/>
     </include>
-    
 
-    <!-- first_mission_node-->
-    <node name="offboard" pkg="offb" type="first_mission_node" output="screen"/>
+    <!-- first_mission_debug_node-->
+    <node name="offboard_debug" pkg="offb" type="first_mission_node_debug" output="screen"/>
 </launch>
