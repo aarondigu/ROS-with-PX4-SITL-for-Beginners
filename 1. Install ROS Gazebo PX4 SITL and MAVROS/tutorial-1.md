@@ -49,6 +49,14 @@ cd ~
 ```
 git clone https://github.com/PX4/Firmware.git --recursive
 ```
+> **NOTE:** To get a stable version instead (in case the vary latest version fails) (the last stable version was v1.11.0):
+
+```
+git clone https://github.com/PX4/Firmware.git
+cd ~/Firmware
+git checkout v1.11.0
+
+```
 
 3. After some time downloading the `PX4/Firmware` ge to the Firmware directory:
 

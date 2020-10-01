@@ -54,7 +54,7 @@ catkin build
 7.  We need a launch file to launch PX4, Gazebo, MAVROS and our node (offb). The launchfile [mavros_posix_sitl.launch](https://github.com/PX4/Firmware/blob/master/launch/mavros_posix_sitl.launch) inside the Firmware already launches PX4, Gazebo, MAVROS and spawns the vehicle. We will include this launchfile in our launchfile and we only need to run our node (offb), so let's create our launchfile:
 
 ```
-cd ~/catkin_ws
+cd ~/catkin_ws/src
 mkdir -p offb/launch
 touch offb/launch/offb.launch
 ```
