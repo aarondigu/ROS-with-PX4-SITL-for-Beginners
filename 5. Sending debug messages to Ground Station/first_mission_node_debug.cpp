@@ -57,7 +57,7 @@ int main(int argc, char **argv)
             ("mavros/cmd/arming");
     ros::ServiceClient set_mode_client = nh.serviceClient<mavros_msgs::SetMode>
             ("mavros/set_mode");
-    //Subscriber to the x topic
+    //Subscriber to the pose topic
     ros::Subscriber pose_sub = nh.subscribe<geometry_msgs::PoseStamped>
             ("mavros/local_position/pose", 10, pose_cb);
     //Service to land drone
@@ -100,7 +100,7 @@ int main(int argc, char **argv)
     //debb.index = 1;
     debb.data = {0.0, 0.0, 0.0} ;
 
-    //buffer to convert float to sring
+    //buffer to convert float to string
     char buffer [9];
 
 
@@ -157,7 +157,8 @@ int main(int argc, char **argv)
 
         	if (dis <= 0.25){ //if distance to the target is <=0.25 meters
         		if (point_counter >= mission_size){
-        			pose.pose.position.x = 0;    				pose.pose.position.y = 0;
+        			pose.pose.position.x = 0;    				
+                    pose.pose.position.y = 0;
     				pose.pose.position.z = 0;
 
 
@@ -192,7 +193,7 @@ int main(int argc, char **argv)
         
 
         local_pos_pub.publish(pose);
-        debug_pub.publish(debb);
+        debug_pub.publish(debb); //publishing DEBUG_VECT
 
         ros::spinOnce();
         rate.sleep();
