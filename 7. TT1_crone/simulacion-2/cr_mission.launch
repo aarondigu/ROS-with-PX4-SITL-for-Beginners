@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- launches MAVROS, PX4 SITL, Gazebo environment,  spawns vehicle and runs offb_node -->
+    
+    <!-- Gazebo World config -->    
+    <arg name="world" default="empty"/>
+
+    <!-- MAVROS, PX4 SITL and Gazebo -->
+    <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+        <arg name="world" value="$(find mavlink_sitl_gazebo)/worlds/$(arg world).world"/>
+        <arg name="vehicle" value="crone"/> 
+        <arg name="z" value="0.5"/> 
+    </include>
+    
+    <!-- mission_node-->
+    <node name="cr_mission" pkg="offb" type="cr_mission_node" output="screen"/>
+
+    <!-- cows_node-->
+    <node name="cr_cows" pkg="offb" type="cr_cows_node" output="screen"/>
+
+</launch>

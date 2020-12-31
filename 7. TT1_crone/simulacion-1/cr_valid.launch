@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- launches MAVROS, PX4 SITL, Gazebo environment,  spawns vehicle and runs cr_valid_node -->
+    
+    <!-- Gazebo World config -->    
+    <arg name="world" default="empty"/>
+
+    <!-- MAVROS, PX4 SITL and Gazebo -->
+    <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+        <arg name="world" value="$(find mavlink_sitl_gazebo)/worlds/$(arg world).world"/>
+        <arg name="vehicle" value="crone"/> 
+        <arg name="z" value="0.5"/> 
+
+    </include>
+    
+    <!-- cr_valid_node-->
+    <node name="cr_valid" pkg="offb" type="cr_valid_node" output="screen"/>
+</launch>
