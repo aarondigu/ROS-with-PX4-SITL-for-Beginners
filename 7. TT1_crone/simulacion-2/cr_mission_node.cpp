@@ -1,12 +1,4 @@
-/**
- * @file mission_node.cpp
- * @brief Starting mission node, written with MAVROS version 0.19.x, PX4 Pro Flight
- * Stack and tested in Gazebo SITL
- */
-
-
 // MPC_XY_CRUISE = 3.0, maximum horizontal velocity of 3 m/s
-
 #include <ros/ros.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <mavros_msgs/CommandBool.h>
@@ -44,16 +36,13 @@ int main(int argc, char **argv)
             ("mavros/mission/pull");
     ros::ServiceClient waypoint_clear_client = nh.serviceClient<mavros_msgs::WaypointClear>
             ("mavros/mission/clear");
-
     //the setpoint publishing rate MUST be faster than 2Hz
     ros::Rate rate(20.0);
-
     // wait for FCU connection
     while(ros::ok() && !current_state.connected){
         ros::spinOnce();
         rate.sleep();
     }
-
 
     //clear mission on fcu
     mavros_msgs::WaypointClear wpp_clear;
@@ -62,7 +51,6 @@ int main(int argc, char **argv)
         rate.sleep();
     }
     ROS_INFO("Mission cleared");
-
 
     mavros_msgs::SetMode offb_set_mode;
     offb_set_mode.request.custom_mode = "AUTO.MISSION";
@@ -75,7 +63,6 @@ int main(int argc, char **argv)
     ros::Time last_request = ros::Time::now();
 
     while(ros::ok()){
-
             // if not armed and waypoint list > 0
             if( ros::Time::now() - last_request > ros::Duration(5.0)) {
                 if( !current_state.armed && waypoint_pull_client.call(wpp) && wpp.response.wp_received > 0){
@@ -86,12 +73,9 @@ int main(int argc, char **argv)
                             ROS_INFO("Vehicle armed");
                         } 
                     }
- 
             }
-
             last_request = ros::Time::now();
             }
-
             //if not armed and last waypoint reached
             if (!current_state.armed && (wp_reached.wp_seq + 1 == wpp.response.wp_received)){
                 if (waypoint_clear_client.call(wpp_clear) && wpp_clear.response.success) {
@@ -99,20 +83,8 @@ int main(int argc, char **argv)
                         wp_reached.wp_seq = 0;
                 }
             }
-
-
-        // if( current_state.mode == "AUTO.MISSION" && !current_state.armed && (ros::Time::now() - last_request > ros::Duration(5.0))){
-        //     if( arming_client.call(arm_cmd) && arm_cmd.response.success){
-        //         ROS_INFO("Vehicle armed");
-        //     }
-
-        //     ROS_INFO("Mode: %s", current_state.mode);
-        // last_request = ros::Time::now();
-        // }
-        
         ros::spinOnce();
         rate.sleep();
     }
-
     return 0;
 }

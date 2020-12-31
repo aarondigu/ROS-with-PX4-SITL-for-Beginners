@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-
-
-# export PX4_HOME_LAT=19.6348858
-# export PX4_HOME_LON=-99.1124147
-
 from pymavlink import mavutil, mavwp
 import time
 import math
@@ -30,19 +25,11 @@ def cmd_get_home():
     msg = mav.recv_match(type=['HOME_POSITION'],blocking=True)
     return (msg.latitude/10000000.0, msg.longitude/10000000.0, msg.altitude/10000000.0)
 
-
-
-#msg = the_connection.recv_match(type='DEBUG_VECT',blocking=True)
-
 mes = cmd_get_home()
 print(mes)
-
 # (northing, easting)
-# waypoints = [(mes[0],mes[1]), (mes[0]+.0001,mes[1]), (mes[0]+.0001,mes[1]+.0001), (mes[0],mes[1]+.0001), (mes[0],mes[1])]
 waypoints = [(mes[0],mes[1]), (mes[0]+.0002,mes[1]), (mes[0]+.0002,mes[1]+.0001), (mes[0],mes[1]+.0001), (mes[0],mes[1]+.0002), (mes[0]+.0002,mes[1]+.0002), (mes[0]+.0002,mes[1]+.0003), (mes[0],mes[1]+.0003), (mes[0],mes[1])]
-
 home_location = waypoints[0]
-
 seq = 0
 for waypoint in enumerate(waypoints):
     frame = mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT
@@ -61,7 +48,6 @@ for waypoint in enumerate(waypoints):
         p = mavutil.mavlink.MAVLink_mission_item_message(mav.target_system, mav.target_component, seq, frame, mavutil.mavlink.MAV_CMD_NAV_WAYPOINT, current, autocontinue, 0, 0, 0, float("nan"), lat, lon, altitude)
     wp.add(p)
 
-
 # Send Waypoints to airframe
 mav.waypoint_clear_all_send()
 mav.waypoint_count_send(wp.count())
@@ -74,18 +60,13 @@ for i in range(wp.count()):
 msg = mav.recv_match(type=['MISSION_ACK'],blocking=True) # OKAY
 print(msg.type)
 
-
-
-
 def read_loop(m):
 	count = 0
 	while(True):
 		try: 
-
 			# LOCAL_POSITION_NED message
 			msg = m.recv_match(type='LOCAL_POSITION_NED', blocking=False)
 			if  msg:
-
 				if count == 0:
 						t0 = msg.time_boot_ms
 						count = 1
@@ -98,48 +79,29 @@ def read_loop(m):
 				print("z:    %f" % msg.z)
 				xd.append(msg.y)
 				yd.append(msg.x) #NED to ENU
-
 				# MPC_XY_CRUISE = 3.0, maximum horizontal velocity of 3 m/s
 				vel = math.sqrt(msg.vx**2 + msg.vz**2 + msg.vz**2)
 				v.append(vel)
 				print("Velocidad: %f" % vel)
-
-
 			else:
 			 	print("No LOCAL_POSITION_NED message yet")
-			 			
 			# DEBUG_VECT message
 			msg = m.recv_match(type='DEBUG_VECT', blocking=True, timeout = 0.05)
 			if  msg:
 					print(msg)
-					# print("NAME: %s" % msg.name)
-					# print("x:    %f" % msg.x)
-					# print("y:    %f" % msg.y)
-					# print("z:    %f" % msg.z)
 					if (msg.x != 0 and msg.y != 0):
-						# nc.append(msg.name)
-						# xc.append(msg.x)
-						# yc.append(msg.y)
-
 						split = msg.name.split()
 						index = int(split[1])
 						tc[index] = mt
 						xc[index] = msg.x
 						yc[index] = msg.y
 						nc[index] = msg.name
-
-
-						# plt.scatter(msg.x, msg.y, color='blue')
-						# plt. annotate(msg.name, (msg.x, msg.y))
 			else:
 				print("No DEBUG_VECT message yet")
-		
-
 			time.sleep(0.05)
 
 		except KeyboardInterrupt:
 			break
-
 
 xd = list() #posicion x dron
 yd = list() #posicion y dron
@@ -152,29 +114,20 @@ tc = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]#tiempo vaca
 
 read_loop(mav)
 
-
 plot1 = plt.figure(1)
 plt.axis([-5, 40, -5, 30]) 
-#plt.ion() # enable interactivity
-
 # Add title and axis names
 plt.title('Mision: buscar ganado con viento de 10 m/s')
 plt.xlabel('x [m] (Este)')
 plt.ylabel('y [m] (Norte)')
-
-#fig=plt.figure() # make a figure
 plt.plot(xd,yd, label='Recorrido del dron')
 for i in range(len(xc)):
 	plt.scatter(xc[i],yc[i],color='red')
-	#plt.annotate(nc[i],(xc[i],yc[i]))
 	plt.annotate(nc[i] + "\n t: " + str(tc[i]) + " s",(xc[i],yc[i]))
-	#print("t: " + str(tc[i]))
-
 
 #plot waypoints
 xwp = list()
 ywp = list()
-
 for waypoint in enumerate(waypoints):
 	if (waypoint[0] == 0):
 		lat,lon = waypoint[1]
@@ -189,23 +142,16 @@ for waypoint in enumerate(waypoints):
 
 	xwp.append(x-x0)
 	ywp.append(y-y0)
-	# print("waypoint %d" % waypoint[0])
-	# print(utm_wp)
 
 plt.plot(xwp,ywp, '--', label='Ruta deseada')
 plt.legend()
-
 
 plot2 = plt.figure(2)
 # Add title and axis names
 plt.title('Velocidad del dron en la mision con viento de 10 m/s')
 plt.xlabel('t [s]')
 plt.ylabel('v [m/s]')
-
-#fig=plt.figure() # make a figure
 plt.plot(t, v, label="Velocidad")
 plt.plot([0, 80], [3, 3], '--', label='Velocidad maxima' )
 plt.legend()
-
-
 plt.show()

@@ -13,26 +13,14 @@ the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_system))
 
 # Once connected, use 'the_connection' to get and send messages
-
 def read_loop(m):
-
-	#messages = ['DEBUG_VECT', 'HEARTBEAT', 'LOCAL_POSITION_NED']
-	messages = ['DEBUG_VECT']
 	count = 0
-
 	while(True):
-
 		try:
-
 		# LOCAL_POSITION_NED message
 			msg = m.recv_match(type='LOCAL_POSITION_NED', blocking=True)
 			if  msg:
 				print(msg)
-				#print("LOCAL_POSITION_NED: ")
-				#print("x:    %f" % msg.x)
-				#print("y:    %f" % msg.y)
-				#print("z:    %f" % msg.z)
-
 				if (msg.z < -0.1 and msg.x > 0.1 and msg.y > 0.1):
 					if (count == 0):
 						t0 = msg.time_boot_ms
@@ -44,28 +32,10 @@ def read_loop(m):
 						ey.append(y - msg.y)
 						ez.append(abs(z - msg.z))
 						t.append(mt)
-
-
 			else:
 			 	print("No LOCAL_POSITION_NED message yet")
-			 			
-			# # DEBUG_VECT message
-			# msg = m.recv_match(type='DEBUG_VECT', blocking=True, timeout = 0.1)
-			# if  msg:
-			# 		print(msg)
-			# 		# print("NAME: %s" % msg.name)
-			# 		# print("x:    %f" % msg.x)
-			# 		# print("y:    %f" % msg.y)
-			# 		# print("z:    %f" % msg.z)
-			# else:
-			# 	print("No DEBUG_VECT message yet")
-		
-
-			#time.sleep(0.001)
-
 		except KeyboardInterrupt:
 			break
-
 
 x = 5
 y = 5
@@ -76,18 +46,14 @@ ey = list()
 ez = list()
 t = list()
 
-
 read_loop(the_connection)
 
 # Add title and axis names
 plt.title('Error de posicion con viento de 10 m/s')
 plt.xlabel('t [ms]')
 plt.ylabel('e [m]')
-
-#fig=plt.figure() # make a figure
 plt.plot(t, ex, label='Error en x [m]')
 plt.plot(t, ey, label='Error en y [m]')
 plt.plot(t, ez, label='Error en z [m]')
-
 plt.legend()
 plt.show()

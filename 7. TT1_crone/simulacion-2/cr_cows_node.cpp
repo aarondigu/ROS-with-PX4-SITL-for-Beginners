@@ -1,10 +1,3 @@
-/**
- * @file offb_node.cpp
- * @brief Generates cows in the map written with MAVROS version 0.19.x, PX4 Pro Flight
- * Stack and tested in Gazebo SITL
- */
-
-
 #include <ros/ros.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <mavros_msgs/CommandBool.h>
@@ -15,10 +8,7 @@
 #include <math.h>  
 #include <stdio.h>
 
-
 const float  PI = 3.14159265358979f;
-//pose: x y x, Orientation: x y z w
-
 // cows coordinates in ENU
 float cows[][3] =   {{25, 2, 1.2},
                      {17, 9, 1.3},
@@ -28,15 +18,10 @@ float cows[][3] =   {{25, 2, 1.2},
                      {1.5, 3.4, 1.4},
                      {12.2, -2.4, 1.0},
                      {-1.5, 10.2, 0.9} };
-
-
-
 //To store current pose
 float x,y,z;
 //Distance between desired pose and current pose
 float dis = 0;
-
-
 
 mavros_msgs::State current_state;
 void state_cb(const mavros_msgs::State::ConstPtr& msg){
@@ -61,7 +46,6 @@ int main(int argc, char **argv)
     //Publisher to publish a DEBUG_VECT        
     ros::Publisher debug_pub = nh.advertise<mavros_msgs::DebugValue>
             ("mavros/debug_value/send", 20);
-
     //the setpoint publishing rate MUST be faster than 2Hz
     ros::Rate rate(20.0);
 
@@ -71,21 +55,16 @@ int main(int argc, char **argv)
         rate.sleep();
     }
 
-
     //To store the vector x,y,z position of the cow
     mavros_msgs::DebugValue debb;
-    //debb.header.seq = 100;
     debb.header.stamp = ros::Time::now();
     debb.header.frame_id = "1"; //ID of the UAV
     debb.name = "";
     debb.type = 1;  //type DEBUG_VECT
     //debb.index = 1;
     debb.data = {0.0, 0.0, 0.0} ;
-
     //buffer to convert float to sring
     char buffer [9];
-
-
 
     //Number of cows
     int size = sizeof(cows)/sizeof(cows[0]);
@@ -93,8 +72,6 @@ int main(int argc, char **argv)
     ros::Time last_request = ros::Time::now();
 
     while(ros::ok()){
-
-
         //If armed and MISSION mode
         if (current_state.mode == "AUTO.MISSION" && current_state.armed ){
             //  check for cows every second
@@ -103,7 +80,6 @@ int main(int argc, char **argv)
                 x = current_pose.pose.position.x;
                 y = current_pose.pose.position.y;
                 z = current_pose.pose.position.z;
-
 
                 for (int i = 0; i < size; i++){
 
@@ -127,9 +103,7 @@ int main(int argc, char **argv)
                 }
 
                 last_request = ros::Time::now();
-
             }
-
         }
         else {
             debb.name = "";
@@ -139,11 +113,8 @@ int main(int argc, char **argv)
         }
         
         debug_pub.publish(debb);
-
         ros::spinOnce();
         rate.sleep();
-        
     }
-
     return 0;
 }
