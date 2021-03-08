@@ -7,21 +7,41 @@
 #include <mavros_msgs/DebugValue.h>
 #include <math.h>  
 #include <stdio.h>
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
 
 const float  PI = 3.14159265358979f;
+
+int ncows = 8; //number of cows
 // cows coordinates in ENU
-float cows[][3] =   {{25, 2, 1.2},
+/*float cows[][3] =   {{25, 2, 1.2},
                      {17, 9, 1.3},
                      {7, 15, 1.5},
                      {24, 9, 0.6},
                      {23, 18.3, 1.1},
                      {1.5, 3.4, 1.4},
                      {12.2, -2.4, 1.0},
-                     {-1.5, 10.2, 0.9} };
+                     {-1.5, 10.2, 0.9} }; */
+float cows[][3];
 //To store current pose
 float x,y,z;
 //Distance between desired pose and current pose
 float dis = 0;
+
+//Randombly generate cow positions
+/*void generate_cows(){
+    float rangexy = 25.0; //generate numbers from 0 to range in meters
+    float rangez = 2.0;
+    for (int i=0; i<ncows; i++){
+        cows[i][0] = float(rand())/float((RAND_MAX)) * rangexy; 
+        cows[i][1] = float(rand())/float((RAND_MAX)) * rangexy;
+        cows[i][2] = float(rand())/float((RAND_MAX)) * rangez;  
+    }
+
+}*/
 
 mavros_msgs::State current_state;
 void state_cb(const mavros_msgs::State::ConstPtr& msg){
@@ -35,6 +55,16 @@ void pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg){
 
 int main(int argc, char **argv)
 {
+    //Seed of random number
+    srand((unsigned int)time(NULL));
+    float rangexy = 25.0; //generate numbers from 0 to range in meters
+    float rangez = 2.0;
+    for (int i=0; i<ncows; i++){
+        cows[i][0] = float(rand())/float((RAND_MAX)) * rangexy; 
+        cows[i][1] = float(rand())/float((RAND_MAX)) * rangexy;
+        cows[i][2] = float(rand())/float((RAND_MAX)) * rangez;  
+    }
+
     ros::init(argc, argv, "cr_cows_node");
     ros::NodeHandle nh;
 

@@ -103,14 +103,15 @@ def read_loop(m):
 		except KeyboardInterrupt:
 			break
 
+tot_v = 8 # cantidad de vacas
 xd = list() #posicion x dron
 yd = list() #posicion y dron
-xc = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]#posicion x vaca
-yc = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] #posicion y vaca
-nc = ["", "", "", "", "", "", "", ""] #id vaca
+xc = [0.0] * tot_v #posicion x vaca
+yc = [0.0] * tot_v #posicion y vaca
+nc =  [""] * tot_v #id vaca
 v = list()	#velocidad dron
 t = list()	#tiempo 
-tc = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]#tiempo vaca
+tc = [0.0] * tot_v #tiempo vaca
 
 read_loop(mav)
 
