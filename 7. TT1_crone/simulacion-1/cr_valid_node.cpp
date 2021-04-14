@@ -33,8 +33,8 @@ int main(int argc, char **argv)
     }
 
     geometry_msgs::PoseStamped pose;
-    pose.pose.position.x = 5;
-    pose.pose.position.y = 5;
+    pose.pose.position.x = 0;
+    pose.pose.position.y = 0;
     pose.pose.position.z = 5;
 
     //send a few setpoints before starting
