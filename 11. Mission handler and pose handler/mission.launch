@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- launches MAVROS, PX4 SITL, Gazebo environment,  spawns vehicle and runs offb_node -->
+    
+    <!-- Gazebo World config -->    
+    <arg name="world" default="empty"/>
+
+    <!-- MAVROS, PX4 SITL and Gazebo -->
+    <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+        <arg name="world" value="$(find mavlink_sitl_gazebo)/worlds/$(arg world).world"/>
+    </include>
+    
+    <!-- offb_node-->
+    <!--  <node name="offb" pkg="offb" type="offb_node" output="screen"/> -->
+    <!-- <node name="waypoint" pkg="offb" type="waypoint" output="screen"/> -->
+    <node name="mission_handler" pkg="offb" type="mission_handler" output="screen"/> 
+    <node name="pose_handler" pkg="offb" type="pose_handler" output="screen"/>
+</launch>
