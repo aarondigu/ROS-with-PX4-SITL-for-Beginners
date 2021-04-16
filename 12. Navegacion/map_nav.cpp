@@ -234,7 +234,7 @@ R     // ENVIAR TAMBIEN POSICION
     //wp_goal_stamped.point.z = wp_goal.z;
     wp_goal_stamped.point.x = 5.0;
     wp_goal_stamped.point.y = 3.0;
-    wp_goal_stamped.point.z = 3.0;
+    wp_goal_stamped.point.z = 3.0;  // COMENTAR ESTOOOO
 
     // Transformando waypoint goal al marco del dron
     geometry_msgs::PointStamped wp_goal_base;
