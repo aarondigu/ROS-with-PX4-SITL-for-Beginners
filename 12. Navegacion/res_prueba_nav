@@ -1,0 +1,20 @@
+// RESULTADOS PRUEBA DE NAVEGACION}
+
+
+p1: Si el histograma esta completamente libre, siempre preferira irse en la direccion del waypoint goal 
+
+p2 : Si el waypoint goal esta en el centro y no hay obstáculos, el dron sigue su trayectoria recta
+
+p3: Si el waypoint goal esta obstruido, preferira rodear en vez de modificar su altura
+
+p4: Si el waypoint goal esta a una altura diferente, el dron adaptara su altura (caso poco probable pues los waypoints tendran la misma altura en un  principio) PASAR AL ULTIMO
+
+p5: Si todo esta tapado, se aproximara lo mas que pueda rodeando
+
+p6: Seguira prefiriendo rodear en vez de modificar altura
+
+p7: Si no puede rodear, preferira ir por arriba aunque este mas lejos
+
+p8: En algun caso extremo prefiere subir en vez de rodear
+
+p9: En algun otro caso extremo preferira ir por abajo, SOLO SI no se puede rodear
