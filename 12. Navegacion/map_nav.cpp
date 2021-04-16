@@ -220,8 +220,10 @@ int main(int argc, char** argv){
 
 
 
-    // Empieza la navegacion ////////////////////////////////////////////////////////////////////
-    float yaw;
+    // EMPIEZA LA NAVEGACION ////////////////////////////////////////////////////////////////////
+    float yaw; // ENVIAR SETPOINT DE YAW
+R     // ENVIAR TAMBIEN POSICION
+    // ENVIUAR TAMBIEN VECTOR UNITARIO DE VELOCIDAD ESCALADO 
 
     // Mapeando pel siguiente waypoint en el histograma
     geometry_msgs::PointStamped wp_goal_stamped;
@@ -332,6 +334,9 @@ int main(int argc, char** argv){
 
     }
 
+    // cConvertir celda ganadora en una posicion
+    // Obtener velocidad para llegar a esa posicion
+    // btener yaw para llegar a esa posicion (delta yaw y en pose handler yaw = current_yaw + delta_yaw)
 
 
     pcl_pub.publish(point_cloud);
